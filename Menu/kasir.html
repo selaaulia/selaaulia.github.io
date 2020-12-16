@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title></title>
+ <style>
+    .tengah{
+      background-image:url(gambar1.jpg);
+      background-position:center;
+      width:auto;
+      height:auto;
+    }
+  
+    table{
+      background: beige;
+      margin:auto;
+    }
+
+</style>
+</head>
+<body class="tengah">
+  <div>
+    <table border="1">
+    <h1 align="center" style="background: beige">Pemesanan</h1>
+    <tr>    
+    <th>Id Pembeli</th>
+    <th><input type="number"  id="id" onchange="total()" ></th>
+    </tr>
+    <tr>    
+    <th>Nama</th>
+    <th><input type="text"  id="nama" onchange="total()" ></th>
+    </tr>
+    <th>Status Pembeli</th>
+      <th><input type="radio" id="status_pembeli" name="status_pembeli" value="Member" required>&nbsp;<label>Member</label>
+      <input type="radio" id="status_pembeli" name="status_pembeli" value="Non Member" required>&nbsp; <label>Non Member</label></th>
+      <br>
+    <tr>    
+    <th>Nama Lauk</th>
+    <th><select id="lauk" onchange="total()">
+        <option value="Ayam Goreng">Ayam Goreng (Rp. 15.000)</option>
+        <option value="Ayam Bakar">Ayam Bakar (Rp. 20.000)</option>
+        <option value="Bebek Goreng">Bebek Goreng (Rp. 20.000)</option>
+        <option value="Bebek Bakar">Bebek Bakar (Rp. 25.000)</option>
+        <option value="Ikan Goreng">Ikan Goreng(Rp. 15.000)</option>
+        <option value="Ikan Bakar">Ikan Bakar(Rp. 20.000)</option>
+    </select></th>
+    </tr>
+    <tr>    
+    <th>Jumlah Lauk</th>    
+    <th><input type="number" id="jumlah_lauk"  value="0" onchange="total()"></th>
+    </tr>
+    <tr>    
+    <th>Porsi Nasi</th>
+    <th><select id="nasi" onchange="total()">
+        <option value="1 Porsi Nasi">1 Porsi Nasi (Rp. 5.000)</option>
+        <option value="1 Bakul Nasi">1 Bakul Nasi (Rp. 15.000)</option>
+    </select></th>
+    </tr> 
+    <tr>    
+    <th>Jumlah Porsi</th>    
+    <th><input type="number" id="jumlah_nasi"  value="0" onchange="total()"></th>
+    </tr>
+    <tr>    
+    <th>Nama Minuman</th>
+    <th><select id="minuman" onchange="total()">
+        <option value="Es Jeruk">Es Jeruk (Rp. 3.000)</option>
+        <option value="Jeruk Hangat">Jeruk Hangat (Rp. 3.000)</option>
+        <option value="Es Teh">Es Teh (Rp. 2.000)</option>
+        <option value="Teh Hangat">Teh Hangat (Rp. 2.000)</option>
+        <option value="Es Kelapa">Es Kelapa (Rp. 10.000)</option>
+        <option value="Es Kelapa Jeruk">Es Kelapa Jeruk(Rp. 15.000)</option>
+        <option value="Es Kelapa Susu Madu">Es Kelapa Susu Madu (Rp. 15.000)</option>
+    </select></th>
+    </tr> 
+    <th>Jumlah Minuman</th>    
+    <th><input type="number" id="jumlah_minuman"  value="0" onchange="total()"></th>
+    </tr>
+
+    <tr>    
+    <th>Jumlah total</th>
+    <th><input type="text" style="background: yellow" id="total" disabled></th>
+    </tr>
+
+    <tr>    
+    <th>Pembayaran</th>    
+    <th><input type="number" id="bayar" onchange="total()"></th>
+    </tr>
+   
+    <tr>    
+    <th>Kembalian</th>
+    <th><input type="text" style="background: yellow" id="total1" disabled></th>
+    </tr>
+          
+    <tr>
+    <th><input type="button" style="background: white"  onclick="window.print()" value="CETAK"></th>
+    </tr>       
+   
+    </table>
+
+  <script type="text/javascript">
+  
+  function total() {
+    var id              = parseInt(document.getElementById('id').value);
+    var nama            = document.getElementById('nama').value;
+    var status_pembeli  = document.querySelector('input[name = status_pembeli]:checked').value;
+    var lauk            = document.getElementById('lauk').value;
+    var jumlah_lauk     = parseInt(document.getElementById('jumlah_lauk').value);
+    var nasi            = document.getElementById('nasi').value;
+    var jumlah_nasi     = parseInt(document.getElementById('jumlah_nasi').value);
+    var minuman         = document.getElementById('minuman').value;
+    var jumlah_minuman  = parseInt(document.getElementById('jumlah_minuman').value);
+
+        if (lauk == "Ayam Goreng") {
+            harga_lauk = 15000;
+        } else if (lauk == "Ayam Bakar") {
+            harga_lauk = 20000;
+        } else if (lauk == "Bebek Goreng") {
+            harga_lauk = 20000;
+        } else if(lauk == "Bebek Bakar"){
+            harga_lauk = 25000;
+        } else if(lauk == "Ikan Goreng"){
+            harga_lauk = 15000;
+        } else if(lauk == "Ikan Bakar"){
+            harga_lauk = 20000;
+        }
+
+        if (status_pembeli == 'Member') {
+            if (jumlah_lauk == 1) {
+                diskon = harga_lauk * 0.05;
+            } else if (jumlah_lauk <= 3) {
+                diskon = harga_lauk * 0.07;
+            } else {
+                diskon = harga_lauk * 0.1;
+            }
+        } else if(status_pembeli == 'Non Member'){
+            if (jumlah_lauk <= 3) {
+                diskon = 0;
+            } else if (jumlah_lauk <= 5) {
+                diskon = (harga_lauk * jumlah_lauk) * 0.05;
+            } else {
+                diskon = harga_lauk * 0.05;
+            }
+        }
+
+        if (nasi == "1 Porsi Nasi") {
+              harga_nasi = 5000;
+        } else if(nasi== "1 Bakul Nasi"){
+              harga_nasi = 15000;
+        } 
+
+        if (minuman == "Es Jeruk") {
+              harga_minuman = 3000;
+        } else if (minuman == "Jeruk Hangat") {
+              harga_minuman = 3000;
+        } else if (minuman == "Es Teh") {
+              harga_minuman = 2000;
+        } else if (minuman == "Teh Hangat") {
+              harga_minuman = 2000;
+        } else if (minuman == "Es Kelapa") {
+              harga_minuman = 10000;
+        } else if (minuman == "Es Kelapa Jeruk") {
+              harga_minuman = 15000;
+        } else if (minuman == "Es Kelapa Susu Madu") {
+              harga_minuman = 15000;
+        }  
+
+    var pembayaran      = parseInt(document.getElementById('bayar').value);
+    var jumlah_harga    = (harga_lauk * jumlah_lauk) + (harga_nasi * jumlah_nasi) + (harga_minuman * jumlah_minuman) - diskon;
+    document.getElementById('total').value = jumlah_harga;
+
+    var kembali = pembayaran - jumlah_harga;
+    document.getElementById('total1').value = kembali;
+  
+   var cetak  = "Id Pembeli    : "+id+"</br>"+
+              "Nama           : "+nama+"</br>" +
+              "Status Pembeli : "+status_pembeli+"</br>"+
+              "Nama Lauk      : "+lauk+"</br>"+
+              "Jumlah Lauk    : "+jumlah_lauk+"</br>"+
+              "Porsi Nasi     : "+porsi_nasi+"</br>"+
+              "Jumlah Porsi   : "+jumlah_nasi+"</br>"+
+              "Nama Minuman   : "+minuman+"</br>"+
+              "Jumlah Minuman : "+jumlah_minuman+"</br>"+
+              "Jumlah_total  : "+jumlah_harga+"</br>"+
+              "pembayaran    : "+pembayaran+"</br>"+
+              "Kembalian     : "+kembali;
+    document.getElementById("cetak").innerHTML=cetak;
+  }
+  
+ </script>
+ </div>
+</body>
+</html>
